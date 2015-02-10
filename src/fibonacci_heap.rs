@@ -157,7 +157,8 @@ impl<K, V> FibonacciHeap<K, V>
     // }
     
     fn consolidate(&mut self) -> () {
-        let log_n = (self.size as f64).log2() as usize + 1;
+        let base: f64 = (1.0 + 5.0.sqrt())/2.0;
+        let log_n = (self.size as f64).log(base) as usize + 1;
         let mut array: Vec<Option<FibonacciNodeType<K, V>>> = (0..log_n).map(|_| None).collect();
         
         let roots = &mut self.roots.clone();
