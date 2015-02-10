@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `FibonacciHeap` struct in crate `fibonacci_heap`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, FibonacciHeap">
+
+    <title>fibonacci_heap::FibonacciHeap - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>fibonacci_heap</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.FibonacciHeap.html' title='Struct that represents the [Fibonacci Heap](http://en.wikipedia.org/wiki/Fibonacci_heap) data structure.'>FibonacciHeap</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>fibonacci_heap</a>::<wbr><a class='struct' href=''>FibonacciHeap</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-16' href='../src/fibonacci_heap/fibonacci_heap.rs.html#16-21'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct FibonacciHeap&lt;K, V&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>Struct that represents the <a href="http://en.wikipedia.org/wiki/Fibonacci_heap">Fibonacci Heap</a> data structure.</p>
+
+<p>Algorithms for this are as seen in the <a href="http://en.wikipedia.org/wiki/Introduction_to_Algorithms">Introduction to Algorithms</a> by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.</p>
+
+<p>The key, K, is the priority used to order the heap. The value, V, is the data associated with the key.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;K, V&gt; <a class='struct' href='../fibonacci_heap/struct.FibonacciHeap.html' title='fibonacci_heap::FibonacciHeap'>FibonacciHeap</a>&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a>, V: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/std/collections/hash/map/struct.Hasher.html' title='std::collections::hash::map::Hasher'>Hasher</a>&gt;</span></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../fibonacci_heap/struct.FibonacciHeap.html' title='fibonacci_heap::FibonacciHeap'>FibonacciHeap</a>&lt;K, V&gt;</code></h4>
+<div class='docblock'><p>Creates a new empty <code>FibonacciHeap</code>.</p>
+</div><h4 id='method.insert' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert' class='fnname'>insert</a>(&amp;mut self, key: K, value: V)</code></h4>
+<div class='docblock'><p>Inserts the value into the heap with priority key.</p>
+</div><h4 id='method.minimum' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.minimum' class='fnname'>minimum</a>(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(K, V)</a>&gt;</code></h4>
+<div class='docblock'><p>Peeks at the minimum of the heap.</p>
+
+<p>Returns <code>None</code> if the heap is empty.</p>
+</div><h4 id='method.extract_min' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.extract_min' class='fnname'>extract_min</a>(&amp;mut self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(K, V)</a>&gt;</code></h4>
+<div class='docblock'><p>Exctracts the minimum of the heap.</p>
+
+<p>Returns <code>None</code> if the heap is empty.</p>
+</div><h4 id='method.decrease_key' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.decrease_key' class='fnname'>decrease_key</a>(&amp;mut self, value: V, key: K) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h4>
+<div class='docblock'><p>Decreases the priority of the value to the key.</p>
+
+<p>Returns <code>Err</code> if the value is not in the heap or if the key is greater than the current priority of the value.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "fibonacci_heap";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>
