@@ -210,7 +210,7 @@ impl<K, V> FibonacciHeap<K, V>
         y.remove_child(x.clone());
         self.roots.push_front(x.clone());
         x.set_parent(None);
-        x.set_marked(true);
+        x.set_marked(false);
     }
     
     fn cascading_cut(&mut self, y: FibonacciNodeType<K, V>) -> () {
