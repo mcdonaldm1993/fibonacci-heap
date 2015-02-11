@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 use std::collections::hash_map::Hasher;
 use std::hash::Hash;
-use std::collections::DList;
 use std::num::Float;
 
 use super::fibonacci_node::FibonacciNodeType;
@@ -14,8 +13,10 @@ use super::fibonacci_node::remove_element;
 ///
 /// The key, K, is the priority used to order the heap. The value, V, is the data associated with the key.
 pub struct FibonacciHeap<K, V> {
+    // Hashmap for O(1) retrieval of nodes
     hash_map: HashMap<V, FibonacciNodeType<K, V>>,
-    roots: DList<FibonacciNodeType<K, V>>,
+    // Roots is a HashMap instead of a list for O(1) removal and insertion of root nodes
+    roots: Option<HashMap<V, FibonacciNodeType<K, V>>>,
     min: Option<FibonacciNodeType<K, V>>,
     size: i32
 }
@@ -28,7 +29,7 @@ impl<K, V> FibonacciHeap<K, V>
     pub fn new() -> FibonacciHeap<K, V> {
         FibonacciHeap{
             hash_map: HashMap::new(),
-            roots: DList::new(),
+            roots: Some(HashMap::new()),
             min: None,
             size: 0
         }
@@ -42,14 +43,14 @@ impl<K, V> FibonacciHeap<K, V>
         
         match min {
             Some(ref m) => {
-                self.roots.push_front(node.clone());
+                self.roots.as_mut().unwrap().insert(node.get_value(), node.clone());
                 if node.get_key() < m.get_key() {
                     self.min = Some(node.clone());
                 }
             },
             None => {
-                self.roots = DList::new();
-                self.roots.push_front(node.clone());
+                self.roots = Some(HashMap::new());
+                self.roots.as_mut().unwrap().insert(node.get_value(), node.clone());
                 self.min = Some(node.clone());
             }
         }
@@ -83,20 +84,21 @@ impl<K, V> FibonacciHeap<K, V>
                 let mut children = z.get_children();
                 for child in children.iter_mut() {
                     child.set_parent(None);
-                    self.roots.push_front(child.clone());
+                    self.roots.as_mut().unwrap().insert(child.get_value(), child.clone());
                 }
-                
-                {
-                    let roots = &mut self.roots;
-                    remove_element(roots, z.clone());
-                }
+
+                self.roots.as_mut().unwrap().remove(&z.get_value());
     
                 {            
-                    if self.roots.len() == 0 {
+                    if self.roots.as_mut().unwrap().is_empty() {
                         self.min = None;
                     } else {
-                        let new_min = self.roots.front().unwrap().clone();
-                        self.min = Some(new_min);
+                        let mut new_min = None;
+                        for value in self.roots.as_mut().unwrap().values() {
+                            new_min = Some(value.clone());
+                        }
+                        
+                        self.min = new_min;
                         self.consolidate();
                     }
                 }
@@ -161,18 +163,23 @@ impl<K, V> FibonacciHeap<K, V>
         let log_n = (self.size as f64).log(base) as usize + 1;
         let mut array: Vec<Option<FibonacciNodeType<K, V>>> = (0..log_n).map(|_| None).collect();
         
-        let roots = &mut self.roots.clone();
-        for root in roots.iter() {
+        let roots = self.roots.take().unwrap();
+            
+        for (_, root) in roots.into_iter() {
             let mut x = root.clone();
             let mut d = x.rank();
             loop {
-                if array[d].clone().is_none() { break; }
+                if array[d].clone().is_none() { 
+                    break;
+                }
+                
                 let mut y = array[d].clone().unwrap();
                 if x.get_key() > y.get_key() {
                     let n = x.clone();
                     x = y.clone();
                     y = n;
                 }
+                
                 self.heap_link(y.clone(), x.clone());
                 array[d] = None;
                 d = d + 1;
@@ -181,27 +188,30 @@ impl<K, V> FibonacciHeap<K, V>
         }
         
         self.min = None;
+        self.roots = Some(HashMap::new());
         
         for i in 0..log_n {
             let min = self.min.clone();
-            if array[i].clone().is_none() { continue; }
+            let i_root = array[i].clone();
+            
+            if i_root.is_none() {
+                continue;
+            }
             
             if min.is_none() {
-                self.roots = DList::new();
-                self.roots.push_front(array[i].clone().unwrap());
-                self.min = array[i].clone();
+                self.roots.as_mut().unwrap().insert(i_root.clone().unwrap().get_value(), i_root.clone().unwrap());
+                self.min = i_root;
             } else {
-                self.roots.push_front(array[i].clone().unwrap());
-                if array[i].clone().unwrap().get_key() < min.unwrap().get_key() {
-                    self.min = array[i].clone();
+                self.roots.as_mut().unwrap().insert(i_root.clone().unwrap().get_value(), i_root.clone().unwrap());
+                if i_root.clone().unwrap().get_key() < min.unwrap().get_key() {
+                    self.min = i_root;
                 }
             }
         }
     }
     
     fn heap_link(&mut self, y: FibonacciNodeType<K, V>, x: FibonacciNodeType<K, V>) -> () {
-        let roots = &mut self.roots;
-        remove_element(roots, y.clone());
+        // No need to remove from roots as self.roots has been consumed and will be replaced anyway
         x.add_child(y.clone());
         y.set_parent(Some(x.clone()));
         y.set_marked(false);
@@ -209,7 +219,7 @@ impl<K, V> FibonacciHeap<K, V>
     
     fn cut(&mut self, x: FibonacciNodeType<K, V>, y: FibonacciNodeType<K, V>) -> () {
         y.remove_child(x.clone());
-        self.roots.push_front(x.clone());
+        self.roots.as_mut().unwrap().insert(x.get_value(), x.clone());
         x.set_parent(None);
         x.set_marked(false);
     }
