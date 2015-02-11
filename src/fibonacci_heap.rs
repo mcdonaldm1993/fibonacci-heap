@@ -203,6 +203,7 @@ impl<K, V> FibonacciHeap<K, V>
         let roots = &mut self.roots;
         remove_element(roots, y.clone());
         x.add_child(y.clone());
+        y.set_parent(Some(x.clone()));
         y.set_marked(false);
     }
     
