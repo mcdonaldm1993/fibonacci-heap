@@ -1,11 +1,9 @@
 use std::collections::HashMap;
-use std::collections::hash_map::Hasher;
 use std::hash::Hash;
 use std::num::Float;
 
 use super::fibonacci_node::FibonacciNodeType;
 use super::fibonacci_node::FibNode;
-use super::fibonacci_node::remove_element;
 
 /// Struct that represents the [Fibonacci Heap](http://en.wikipedia.org/wiki/Fibonacci_heap) data structure.
 ///
@@ -23,7 +21,7 @@ pub struct FibonacciHeap<K, V> {
 
 impl<K, V> FibonacciHeap<K, V>
     where K: Clone + Eq + Ord,
-          V: Clone + Eq + Hash<Hasher>
+          V: Clone + Eq + Hash
 {
     /// Creates a new empty `FibonacciHeap`.
     pub fn new() -> FibonacciHeap<K, V> {
@@ -82,7 +80,7 @@ impl<K, V> FibonacciHeap<K, V>
         match z {
             Some(z) => {
                 let mut children = z.get_children();
-                for child in children.iter_mut() {
+                for child in &mut children {
                     child.set_parent(None);
                     self.roots.as_mut().unwrap().insert(child.get_value(), child.clone());
                 }
@@ -165,7 +163,7 @@ impl<K, V> FibonacciHeap<K, V>
         
         let roots = self.roots.take().unwrap();
             
-        for (_, root) in roots.into_iter() {
+        for (_, root) in roots {
             let mut x = root.clone();
             let mut d = x.rank();
             loop {

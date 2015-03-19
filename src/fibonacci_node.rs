@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use std::collections::DList;
+use std::collections::LinkedList;
 
 pub type FibonacciNodeType<K, V> = Rc<RefCell<FibonacciNode<K, V>>>;
 
@@ -16,7 +16,7 @@ pub trait FibNode<K, V> {
     fn set_parent(&self, parent: Option<Self>) -> ();
     fn add_child(&self, child: Self) -> ();
     fn remove_child(&self, child: Self) -> Option<Self>;
-    fn get_children(&self) -> DList<FibonacciNodeType<K, V>>;
+    fn get_children(&self) -> LinkedList<FibonacciNodeType<K, V>>;
 }
 
 
@@ -26,7 +26,7 @@ pub struct FibonacciNode<K, V> {
     value: V,
     marked: bool,
     parent: Option<FibonacciNodeType<K, V>>,
-    children: DList<FibonacciNodeType<K, V>>
+    children: LinkedList<FibonacciNodeType<K, V>>
     // Rank is children.len()
 }
 
@@ -40,7 +40,7 @@ impl<K, V> FibNode<K, V> for FibonacciNodeType<K, V>
             value: value,
             marked: false,
             parent: None,
-            children: DList::new()
+            children: LinkedList::new()
         }))
     }
     
@@ -86,7 +86,7 @@ impl<K, V> FibNode<K, V> for FibonacciNodeType<K, V>
         remove_element(children, child)
     }
     
-    fn get_children(&self) -> DList<FibonacciNodeType<K, V>> {
+    fn get_children(&self) -> LinkedList<FibonacciNodeType<K, V>> {
         self.borrow().children.clone()
     }
 }
@@ -102,7 +102,7 @@ impl<K, V> PartialEq for FibonacciNodeType<K, V>
 
 impl<K, V> Eq for FibonacciNodeType<K, V> where K: Eq, V: Eq { }
 
-pub fn remove_element<T>(list: &mut DList<T>, element: T) -> Option<T>
+pub fn remove_element<T>(list: &mut LinkedList<T>, element: T) -> Option<T>
     where T: Eq
 {
     for _ in 0..list.len() {
