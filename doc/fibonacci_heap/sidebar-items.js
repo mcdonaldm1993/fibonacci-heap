@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FibonacciHeap","Struct that represents the Fibonacci Heap data structure."]]});

@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='index.html'>fibonacci_heap</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.FibonacciHeap.html' title='Struct that represents the [Fibonacci Heap](http://en.wikipedia.org/wiki/Fibonacci_heap) data structure.'>FibonacciHeap</a></div>
+        <p class='location'><a href='index.html'>fibonacci_heap</a></p><script>window.sidebarCurrent = {name: 'FibonacciHeap', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </section>
 
     <nav class="sub">
@@ -42,9 +42,8 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>fibonacci_heap</a>::<wbr><a class='struct' href=''>FibonacciHeap</a><wbr></span><span class='out-of-band'><span id='render-detail'>
-            <a id="collapse-all" href="#">[-]
-            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-15' href='../src/fibonacci_heap/fibonacci_heap.rs.html#15-22'>[src]</a></span></h1>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-13' href='../src/fibonacci_heap/fibonacci_heap.rs.html#13-20'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct FibonacciHeap&lt;K, V&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>Struct that represents the <a href="http://en.wikipedia.org/wiki/Fibonacci_heap">Fibonacci Heap</a> data structure.</p>
@@ -52,7 +51,7 @@
 <p>Algorithms for this are as seen in the <a href="http://en.wikipedia.org/wiki/Introduction_to_Algorithms">Introduction to Algorithms</a> by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.</p>
 
 <p>The key, K, is the priority used to order the heap. The value, V, is the data associated with the key.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;K, V&gt; <a class='struct' href='../fibonacci_heap/struct.FibonacciHeap.html' title='fibonacci_heap::FibonacciHeap'>FibonacciHeap</a>&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a>, V: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/std/collections/hash/map/struct.Hasher.html' title='std::collections::hash::map::Hasher'>Hasher</a>&gt;</span></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../fibonacci_heap/struct.FibonacciHeap.html' title='fibonacci_heap::FibonacciHeap'>FibonacciHeap</a>&lt;K, V&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;K, V&gt; <a class='struct' href='../fibonacci_heap/struct.FibonacciHeap.html' title='fibonacci_heap::FibonacciHeap'>FibonacciHeap</a>&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a>, V: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a></span></code></h3><div class='impl-items'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../fibonacci_heap/struct.FibonacciHeap.html' title='fibonacci_heap::FibonacciHeap'>FibonacciHeap</a>&lt;K, V&gt;</code></h4>
 <div class='docblock'><p>Creates a new empty <code>FibonacciHeap</code>.</p>
 </div><h4 id='method.insert' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert' class='fnname'>insert</a>(&amp;mut self, key: K, value: V)</code></h4>
 <div class='docblock'><p>Inserts the value into the heap with priority key.</p>
