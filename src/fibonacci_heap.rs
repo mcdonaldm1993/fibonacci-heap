@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use std::hash::Hash;
-use std::num::Float;
 
 use super::fibonacci_node::FibonacciNodeType;
 use super::fibonacci_node::FibNode;
@@ -157,7 +156,7 @@ impl<K, V> FibonacciHeap<K, V>
     // }
     
     fn consolidate(&mut self) -> () {
-        let base: f64 = (1.0 + 5.0.sqrt())/2.0;
+        let base: f64 = (1.0 + 5.0f64.sqrt())/2.0;
         let log_n = (self.size as f64).log(base) as usize + 1;
         let mut array: Vec<Option<FibonacciNodeType<K, V>>> = (0..log_n).map(|_| None).collect();
         
